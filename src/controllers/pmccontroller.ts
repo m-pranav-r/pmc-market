@@ -1,11 +1,12 @@
 import { Request, Response } from 'express'
 import mysql from 'mysql'
+import config from '../config/dbconfig'
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "pmcdb"
+    host: config.host,
+    user: config.user,
+    password: config.password,
+    database: config.database
 })
 connection.connect()
 
@@ -18,7 +19,7 @@ export const getBases = ((req: Request, res: Response) => {
         for (var row of rows) {
             queryData.push(row)
         }
-        res.status(200).json(queryData)
+        return res.status(200).json(queryData)
     })
 })
 
